@@ -1,0 +1,27 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Ma liste de course</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card *ngFor="let article of articles">
+    <ion-card-header><ion-icon name="basket"></ion-icon> | {{article?.name.toUpperCase()}}</ion-card-header>
+    <ion-card-content>
+        <div *ngIf="article?.check; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+          <button ion-button icon-left full color="secondary" (click)="checkArticle(article)"><ion-icon name="checkmark"></ion-icon> Pris</button>
+        </ng-template>
+        <ng-template #elseBlock>
+          <button ion-button full color="dark"(click)="checkArticle(article)">Non pris</button>
+        </ng-template>
+
+        <button ion-button icon-left full color="danger" (click)="deleteArticle(article)"><ion-icon name="trash"></ion-icon> Supprimer</button>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
