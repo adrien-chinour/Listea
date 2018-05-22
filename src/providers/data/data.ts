@@ -1,38 +1,40 @@
 import { Injectable } from '@angular/core';
 
 import { Article } from '../../models/article';
+import Dexie from 'dexie';
 
 @Injectable()
 export class DataProvider {
 
-  private articles: Article[] = [
-    {name: 'Pommes', categorie: '#Tarte', check: true},
-    {name: 'bières', categorie: '#Apéro', check: false}
-  ];
+  private db: Dexie;
 
   constructor() {
+    this.db = new Dexie('liste_course');
+    this.db.version(1).stores({
+      articles: '++id, article'
+    })
   }
 
-  getArticles() {
-    return this.articles;
+  public getArticles(): Dexie.Promise<Article[]> {
+    return this.db.table('articles').toArray();
+
   }
 
-  addArticle(article: Article){
-    this.articles = [...this.articles, article];
+  public addArticle(article: Article){
+    this.db.table('articles').add(article);
   }
 
-  checkArticle(article: Article) {
-    for (let i in this.articles) {
-      if (this.articles[i].name == article.name) {
-        this.articles[i].check = !this.articles[i].check;
-        break;
-      }
-    }
+  public checkArticle(article: Article) {
+    let id = article.id;
+    article.check = !article.check;
+    this.db.table('articles').get(id).then(
+      data => this.db.table('articles').update(id, {check: !(data.check)} )
+    );
   }
 
-  deleteArticle(article: Article){
-    let index = this.articles.indexOf(article);
-    this.articles.splice(index, 1);
+  public deleteArticle(id: number){
+    this.db.table('articles').delete(id);
+    this.getArticles();
   }
 
 }

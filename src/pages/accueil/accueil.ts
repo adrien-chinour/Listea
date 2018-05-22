@@ -12,25 +12,35 @@ export class AccueilPage {
 
   articles: Article[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private dataProvider: DataProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public dataProvider: DataProvider) {
   }
 
   ionViewWillEnter() {
-    this.articles = this.dataProvider.getArticles().sort(function (a, b) {
-      let nameA = a.name.toUpperCase();
-      let nameB = b.name.toUpperCase();
-      if (nameA < nameB) return -1;
-      if (nameA > nameB) return 1;
-      return 0;
-    });
+    this.getArticles();
   }
 
-  deleteArticle(article: Article) {
-    this.dataProvider.deleteArticle(article);
+  deleteArticle(id: number) {
+    this.dataProvider.deleteArticle(id);
+    this.getArticles();
   }
 
   checkArticle(article: Article) {
     this.dataProvider.checkArticle(article);
+  }
+
+  getArticles() {
+    this.dataProvider.getArticles().then(
+      data => this.articles = data
+    );
+  }
+
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
   }
 
 }

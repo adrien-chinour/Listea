@@ -9,19 +9,22 @@
 
 <ion-content padding>
 
-  <ion-card *ngFor="let article of articles">
-    <ion-card-header><ion-icon name="basket"></ion-icon> | {{article?.name.toUpperCase()}}</ion-card-header>
-    <ion-card-content>
-        <div *ngIf="article?.check; then thenBlock else elseBlock"></div>
-        <ng-template #thenBlock>
-          <button ion-button icon-left full color="secondary" (click)="checkArticle(article)"><ion-icon name="checkmark"></ion-icon> Pris</button>
-        </ng-template>
-        <ng-template #elseBlock>
-          <button ion-button full color="dark"(click)="checkArticle(article)">Non pris</button>
-        </ng-template>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
 
-        <button ion-button icon-left full color="danger" (click)="deleteArticle(article)"><ion-icon name="trash"></ion-icon> Supprimer</button>
-    </ion-card-content>
-  </ion-card>
+  <ion-list>
+    <button ion-item *ngFor="let article of articles" (click)="checkArticle(article)">
+      <h2 [ngClass]="{true: 'check-article'}[article.check]">{{ article?.name }}</h2>
+      <p>{{ article?.categorie }}</p>
+      <button ion-button icon-only clear item-end (click)="deleteArticle(article.id)"><ion-icon name="trash"></ion-icon></button>
+    </button>
+  </ion-list>
+
 
 </ion-content>
