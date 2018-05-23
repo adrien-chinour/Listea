@@ -37,4 +37,17 @@ export class DataProvider {
     this.getArticles();
   }
 
+  public search(term: string):  Dexie.Promise<Article[]> {
+    return this.db.table('articles')
+      .toArray()
+      .then(data => {
+        return data.filter(tech => this.nameIncludesTerm(tech, term));
+      });
+  }
+
+  private nameIncludesTerm(technology, term) {
+    console.log(technology, term.toLocaleLowerCase(), technology.name.toLocaleLowerCase());
+    return technology.name.toLocaleLowerCase().includes(term.toLocaleLowerCase());
+  }
+
 }

@@ -1,19 +1,19 @@
+@import "theme/default";
+
 page-accueil {
+  ion-card-header {
+    background: #488aff !important;
+    color: white !important;
+    text-align: center;
+  }
 
+  ion-card-content {
+    padding: 10px !important;
+  }
+
+  .check-article {
+    text-decoration: line-through;
+    color: #777;
+  }
 }
 
-
-ion-card-header {
-  background: #488aff !important;
-  color: white !important;
-  text-align: center;
-}
-
-ion-card-content {
-  padding: 10px !important;
-}
-
-.check-article {
-  text-decoration: line-through;
-  color: #777;
-}

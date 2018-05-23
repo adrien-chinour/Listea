@@ -11,18 +11,18 @@
 
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
-      pullingIcon="arrow-dropdown"
-      pullingText="Pull to refresh"
-      refreshingSpinner="circles"
-      refreshingText="Refreshing...">
+      refreshingSpinner="crescent"
+      refreshingText="Actualisation...">
     </ion-refresher-content>
   </ion-refresher>
 
+  <ion-searchbar (ionInput)="search($event)" placeholder="Rechercher"></ion-searchbar>
+
   <ion-list>
     <button ion-item *ngFor="let article of articles" (click)="checkArticle(article)">
-      <h2 [ngClass]="{true: 'check-article'}[article.check]">{{ article?.name }}</h2>
+      <h2 [ngClass]="{true: 'check-article'}[article.check]" text-capitalize>{{ article?.name }}</h2>
       <p>{{ article?.categorie }}</p>
-      <button ion-button icon-only clear item-end (click)="deleteArticle(article.id)"><ion-icon name="trash"></ion-icon></button>
+      <button ion-button icon-only clear item-end (click)="deleteArticle(article.id)"><ion-icon name="trash" color="danger"></ion-icon></button>
     </button>
   </ion-list>
 
