@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Mes Courses</name>
-    <description>Application de gestion de liste de courses minimaliste.</description>
+    <name>Listea</name>
+    <description>Gestionnaire de liste minimaliste.</description>
     <author email="achinour@pm.me" href="https://adrienchinour.me/">Adrien Chinour</author>
     <content src="index.html" />
     <access origin="*" />
